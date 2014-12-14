@@ -82,7 +82,8 @@ end;
 # simple subs
 begin;
 	class String; 
-		def blankctl!; tr!("\x00-\x1f\x7f", " "); self; end; 
+      # escape everything but \x03 (which allows using color on IRC)
+		def blankctl!; tr!("\x00-\x02\x04-\x1f\x7f", " "); self; end;
 		def blankctl; dup.blankctl!; end; 
 		def escapectl; gsub(/[\x00-\x1f~\x7f-\x9f]/) { "~%02x" % $&[0] }; end;
 		end;
@@ -499,6 +500,8 @@ class JSpawn;
 		end;
 	end;
 
+	JSPAWN_INIT0 = conf(:jspawn_init0,   %q{''});
+	JSPAWN_INIT0b = conf(:jspawn_init0b, %q{''});
 	JSPAWN_INIT2 = conf(:jspawn_init2, %q{(9!:33]50)](9!:21]2^25)](9!:7]'+++++++++|-')});
 	JSPAWN_INIT3 = conf(:jspawn_init3, %Q{(9!:37]0 #{conf(:jspawn_cols, 388)-4} #{conf(:jspawn_lines, 6)-1} 0)]0 0$0});
 	def do_pretalk;
@@ -507,6 +510,10 @@ class JSpawn;
 		Thread.new do 
 			pumpread; 
 		end;
+		jwrite CMDDO, 0, JSPAWN_INIT0;
+		jwait;
+		jwrite CMDDO, 0, JSPAWN_INIT0b;
+		jwait;
 		jwrite CMDDO, 0, %q(9!:25]1); # secure
 		jwait;
 		jwrite CMDDO, 0, JSPAWN_INIT2;
@@ -1088,7 +1095,7 @@ Irc.instance_eval do
 	
 	
 	sleep 1;
-	@ircconn = Socket.new(Socket::PF_INET, Socket::SOCK_STREAM, 0);
+	@ircconn = Socket.new(Socket::AF_INET, Socket::SOCK_STREAM, 0);
 	irchost = conf(:irc_hostname, "irc.freenode.net");
 	ircport = conf(:irc_port, 6667);
 	ircsockaddr = Socket.pack_sockaddr_in(ircport, irchost);

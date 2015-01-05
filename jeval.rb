@@ -1133,7 +1133,6 @@ Irc.instance_eval do
 	Thread.new do
 		while msg = @ircputsqueue.shift;
 			@ircputscredit.consume IRC_EXTRAPERLINE + msg.size;
-			puts "> " + msg.gsub(/(\bnickserv\b.*\bidentify\b).*/im) { $1 + " ???" }.blankctl!;
 			@ircconn.print msg, "\r\n";
 		end;
 	end;
@@ -1141,12 +1140,13 @@ Irc.instance_eval do
 	irc_username = conf(:irc_username, `whoami`.chomp!);
 	irc_logincmd = [
 		"PASS 0", "NICK #{IRCNICK}", "USER #{irc_username} 0 0 :#{conf(:irc_realname, "jevalbot")}",
-		"PRIVMSG nickserv :identify #{ircpass}", 
 	];
 	if !conf(:irc_doublelogin, false);
-		ircputs(*irc_logincmd);
+          ircputs(*irc_logincmd);
 	end;
-	sleep 5;
+	sleep 2
+        ircputs "PRIVMSG NickServ :identify #{ircpass}"
+        sleep 5
 	IRCCHAN.each do |chan, ent|
 		IRCCHAN[chan][:join] and
 			ircputs "JOIN :" + chan.to_s.blankctl;

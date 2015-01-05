@@ -55,18 +55,18 @@ jspawn_parallel: 7
 # nice level for jep
 jspawn_nice: 5
 # address space limit for jep
-jspawn_mem: 33554432 # bytes
-#jspawn_mem: ~ # do not try to set
+#jspawn_mem: 33554432 # bytes
+jspawn_mem: ~ # do not try to set
 # hard limit of lines to output per j command (the last one reserved for elipsis)
 jspawn_lines: 6
 # hard limit of characters in each line output per j command (the last four reserved for ellipsis)
 jspawn_cols: 388
 # commands to j interpreter (init1 puts it to secure mode, init3 sets soft output limits)
-jspawn_init0:  0!:0<'/home/j-bot/j/j/system/main/stdlib.ijs' [ BINPATH_z_=:'/home/j-bot/j/j/bin'
-#jspawn_init0:  0!:0<'/home/j-bot/j/j/bin/profile.ijs' [ BINPATH_z_=:'/home/j-bot/j/j/bin'
-#jspawn_init0b: load '/home/j-bot/j/j/system/main/regex.ijs'
+#jspawn_init0:  0!:0<'/home/j-bot/j/j/system/main/stdlib.ijs' [ BINPATH_z_=:'/home/j-bot/j/j/bin'
+jspawn_init0:  0!:0<'/home/j-bot/j/j/bin/profile.ijs' [ BINPATH_z_=:'/home/j-bot/j/j/bin' [ 18!:4<'j'
+jspawn_init0b: load '/home/j-bot/jevalbot/irclib.ijs'
 # set box chars and space/time limits
-jspawn_init2: "(9!:33]50)] (9!:21]2^25)] (9!:7]a.{~16 17 18 19 20 21 22 23 24 25 26)"
+jspawn_init2: "(9!:33]50)] (9!:21]2^25)] (9!:7]a.{~16 17 18 19 20 21 22 23 24 25 26) [ cc'base'"
 
 
 # jspawn sessions enabled
@@ -74,8 +74,8 @@ jspawn_sess: true
 # limit on number of sessions kept
 jspawn_sessionnum: 16
 # size limit of each session in bytes
-#jspawn_sessionsize: 262144
-jspawn_sessionsize: 524288
+# set to 1 mb
+jspawn_sessionsize: 1000000
 
 # command to save session state to variable state_jeval_
 # 'd s r'=:(atomic reps for base locale);(symbol table);(rng state)

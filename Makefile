@@ -5,7 +5,7 @@
 CC = gcc
 OFLAG = -O
 CFL =
-JSOFTWARE_LIBRARY = -L ~/local/lib -lj701
+JSOFTWARE_LIBRARY = -L . -lj
 
 # rules
 

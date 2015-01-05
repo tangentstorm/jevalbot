@@ -1,17 +1,16 @@
 # jeval bot user configuration file
 #
-# WARNING: 
+# WARNING:
 # Run jeval.rb to your own risk only, as the secure mode of the J interpreter
-# might not be as secure as you think.  Also don't violate any rules set 
+# might not be as secure as you think.  Also don't violate any rules set
 # by the irc network.
 #
 
 # ----------------------------------------------------------
 # first, the options you must change if you install jevalbot
 
-# command to run the program jep -jconnect, port will be appended. 
+# command to run the program jep -jconnect, port will be appended.
 jep_command: ["/usr/bin/env", "LD_LIBRARY_PATH=.", "./jep", "-jconnect"]
-#jep_command: ["/usr/bin/env", "LD_LIBRARY_PATH=/home/ambrus/local/lib", "/home/ambrus/local/bin/jep", "-jfd"] # example with a local install and environment change
 
 # nick to use on irc
 ircnick: j-bot
@@ -22,16 +21,16 @@ irc_nickservpass_file: /home/j-bot/jevalbot/ircpass
 # ----------------------------------------------------------
 # then the rest of the options you may leave unchanged at first
 
-# path of a file jeval will lock so only one instance of it can be 
-# running; touch the file before first running jeval; contents of 
+# path of a file jeval will lock so only one instance of it can be
+# running; touch the file before first running jeval; contents of
 # file will be clobbered
 jeval_lock: ~ # disable lockfile
 
-# use private -jfd interface of jep instead of -jconnect, 
+# use private -jfd interface of jep instead of -jconnect,
 # thus avoid a dangerous race condition.
-# this only works with my jep replacement, not the jep distributed with J, 
+# this only works with my jep replacement, not the jep distributed with J,
 # but you need to use my replacement anyway starting from J version 602.
-# if you use this, chanve the jep_command option to have "-jfd" as the last 
+# if you use this, chanve the jep_command option to have "-jfd" as the last
 # argument instead of "-jconnect"; the bot will append a file descriptor
 # of an open socket instead of a tcp port number.
 jeval_jfd: false # -jconnect
@@ -91,7 +90,7 @@ jspawn_sess_loader: |-
 wd_max: 4096
 # max number of bb queries a jeval command can do
 wd_bbquery_max: 0
-# nick addressed in privmsg by bbquery (11!:1) 
+# nick addressed in privmsg by bbquery (11!:1)
 bbnick: buubot
 # timeout to wait for buubot's reply in a buubot query
 bbquery_timeout: 5
@@ -123,7 +122,7 @@ ircchan:
   "#jeval":
     join: true
     short: true
-  "#jsoftware": # name of channel
+  "jsoftware": # name of channel
     join: true # join channel on startup
     short: true # allow shortcut queries
   "#learnprogramming":
@@ -138,6 +137,9 @@ ircchan:
   "#learnmath":
     join: true
     short: true
+  "#coding-n00bs":
+    join: true
+    short: true
 
 # irc nicks who are allowed to give administrative commands in private message
 irc_admins:
@@ -147,7 +149,7 @@ irc_admins:
 
 # nicks of bots to partially ignore (to avoid loops)
 irc_botignore:
-  - _zofbot  
+  - _zofbot
   - _zofbot3
   - alis
   - avarbot
@@ -208,5 +210,3 @@ irc_botignore:
 # nicks of users to completely ignore
 irc_ignore:
   #- annoyinguser
-
-

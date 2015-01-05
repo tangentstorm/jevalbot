@@ -1,0 +1,6 @@
+*~
+syms/
+ircpass
+*.o
+*.so
+jep

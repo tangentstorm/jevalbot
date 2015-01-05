@@ -122,8 +122,8 @@ ircchan:
   "#jeval":
     join: true
     short: true
-  "jsoftware": # name of channel
-    join: true # join channel on startup
+  "#jsoftware": # name of channel
+    join: true  # join channel on startup
     short: true # allow shortcut queries
   "#learnprogramming":
     join: true

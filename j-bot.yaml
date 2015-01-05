@@ -10,14 +10,14 @@
 # first, the options you must change if you install jevalbot
 
 # command to run the program jep -jconnect, port will be appended. 
-jep_command: ["LD_LIBRARY_PATH=. ./jep", "./jep", "-jconnect"]
+jep_command: ["/usr/bin/env", "LD_LIBRARY_PATH=.", "./jep", "-jconnect"]
 #jep_command: ["/usr/bin/env", "LD_LIBRARY_PATH=/home/ambrus/local/lib", "/home/ambrus/local/bin/jep", "-jfd"] # example with a local install and environment change
 
 # nick to use on irc
-ircnick: jeval
+ircnick: j-bot
 
 # file containing the nickserv password as a single line
-irc_nickservpass_file: /home/jeval/a/jeval/ircpass
+irc_nickservpass_file: /home/j-bot/jevalbot/ircpass
 
 # ----------------------------------------------------------
 # then the rest of the options you may leave unchanged at first
@@ -62,21 +62,29 @@ jspawn_mem: 33554432 # bytes
 jspawn_lines: 6
 # hard limit of characters in each line output per j command (the last four reserved for ellipsis)
 jspawn_cols: 388
-# second command initializing j interpreter (first one puts it to secure mode, third one sets soft output limits)
-#jspawn_init2: "(9!:33]50)](9!:21]2^25)](9!:7]'+++++++++|-')"
+# commands to j interpreter (init1 puts it to secure mode, init3 sets soft output limits)
+jspawn_init0:  0!:0<'/home/j-bot/j/j/system/main/stdlib.ijs' [ BINPATH_z_=:'/home/j-bot/j/j/bin'
+#jspawn_init0:  0!:0<'/home/j-bot/j/j/bin/profile.ijs' [ BINPATH_z_=:'/home/j-bot/j/j/bin'
+#jspawn_init0b: load '/home/j-bot/j/j/system/main/regex.ijs'
+# set box chars and space/time limits
+jspawn_init2: "(9!:33]50)] (9!:21]2^25)] (9!:7]a.{~16 17 18 19 20 21 22 23 24 25 26)"
+
 
 # jspawn sessions enabled
 jspawn_sess: true
 # limit on number of sessions kept
 jspawn_sessionnum: 16
 # size limit of each session in bytes
-jspawn_sessionsize: 262144
+#jspawn_sessionsize: 262144
+jspawn_sessionsize: 524288
+
 # command to save session state to variable state_jeval_
+# 'd s r'=:(atomic reps for base locale);(symbol table);(rng state)
 jspawn_sess_dumper: |-
-  state_jeval_ =: ((,.5!:1),&'_base_'&.>4!:1 i.4);<(9!:44$0)
+  state_jeval_ =: ((,.5!:1),&'_base_'&.>4!:1 i.4);((3!:1) 0 s: 10);<(9!:44$0)
 # command to load the state from that variable
 jspawn_sess_loader: |-
-  3 :('''d r''=.state_jeval_';'4 :(''(x)=:y(5!:0)'';''0'')/"1 d';'9!:45 r')0
+  3 :('''d s r''=.state_jeval_';'4 :(''(x)=:y(5!:0)'';''0'')/"1 d';'10 s: (3!:2) s';'9!:45 r')0
 
 # wd calls are currently not supported in the jep replacement
 # max number of wd calls a jeval command can do
@@ -89,7 +97,8 @@ bbnick: buubot
 bbquery_timeout: 5
 
 # hostname and port of irc server to connect to
-irc_hostname: irc.freenode.net
+# using 'irc.freenode.net' resolves to ipv6 and fails :/
+irc_hostname: 185.30.166.38
 irc_port: 6667
 # real name to use on irc
 irc_realname: jevalbot
@@ -97,9 +106,9 @@ irc_realname: jevalbot
 #irc_username: john
 
 # enable shortcut queries
-irc_shortenable: false
+irc_shortenable: true
 # shortcut query prefix
-irc_shortprefix: "]"
+irc_shortprefix: "["
 # whitespace required after shortcut prefix
 irc_shortspace: true
 # enable j queries in private message to the bot
@@ -111,20 +120,30 @@ irc_holdlines: 128
 
 # options specific to irc channels
 ircchan:
+  "#jeval":
+    join: true
+    short: true
   "#jsoftware": # name of channel
     join: true # join channel on startup
     short: true # allow shortcut queries
-  "#ijx":
+  "#learnprogramming":
     join: true
     short: true
-  "#jeval":
+  "##logic":
+    join: true
+    short: true
+  "#lpmc":
+    join: true
+    short: true
+  "#learnmath":
     join: true
     short: true
 
 # irc nicks who are allowed to give administrative commands in private message
 irc_admins:
-  #- yournick
-  #- othernick
+  - tangentstorm
+  - fftw
+  - b_jonas
 
 # nicks of bots to partially ignore (to avoid loops)
 irc_botignore:

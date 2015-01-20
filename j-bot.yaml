@@ -58,7 +58,7 @@ jspawn_nice: 5
 #jspawn_mem: 33554432 # bytes
 jspawn_mem: ~ # do not try to set
 # hard limit of lines to output per j command (the last one reserved for elipsis)
-jspawn_lines: 6
+jspawn_lines: 9
 # hard limit of characters in each line output per j command (the last four reserved for ellipsis)
 jspawn_cols: 388
 # commands to j interpreter (init1 puts it to secure mode, init3 sets soft output limits)

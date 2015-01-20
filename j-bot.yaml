@@ -140,6 +140,9 @@ ircchan:
   "#coding-n00bs":
     join: true
     short: true
+  "#esoteric":
+    join: true
+    short: true
 
 # irc nicks who are allowed to give administrative commands in private message
 irc_admins:

@@ -97,7 +97,7 @@ bbquery_timeout: 5
 
 # hostname and port of irc server to connect to
 # using 'irc.freenode.net' resolves to ipv6 and fails :/
-irc_hostname: 185.30.166.38
+irc_hostname: 148.251.187.147
 irc_port: 6667
 # real name to use on irc
 irc_realname: jevalbot

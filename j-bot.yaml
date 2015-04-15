@@ -143,6 +143,9 @@ ircchan:
   "#esoteric":
     join: true
     short: true
+  "#reddit-dailyprogrammer":
+    join: true
+    short: true
 
 # irc nicks who are allowed to give administrative commands in private message
 irc_admins:

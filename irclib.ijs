@@ -1,5 +1,8 @@
 NB. J library for IRC
 
+NB. from this repository
+load'lib/graphics.ijs'
+
 NB. from: https://github.com/tangentstorm/syndir
 UserFolders_j_=:'Syn';'/home/j-bot/syndir'
 load'~Syn/startup.ijs'
